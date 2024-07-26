@@ -1,0 +1,10 @@
+body {
+    background: url('https://img.freepik.com/foto-gratis/cerrar-vista-almacen_23-2148923139.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #0a3061e7;
+}
+.container {
+    background: rgba(210, 231, 236, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+}

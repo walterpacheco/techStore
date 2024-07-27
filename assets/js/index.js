@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalStockElement = document.getElementById("totalStock");
     const totalPriceElement = document.getElementById("totalPrice");
     const productCategorySelect = document.getElementById('productCategory');
-    const filterCategorySelect = document.getElementById('productCategory');
+    const filterCategorySelect = document.getElementById('categoryFilter');
     let products = [];
 
     productForm.addEventListener("submit", (e) => {
@@ -48,6 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
         totalPriceElement.textContent = totalPrice;
     });
 
+    filterCategorySelect.addEventListener('change', filterProducts);
+
     function addProductToTable(product) {
         const row = document.createElement("tr");
         row.innerHTML = `
@@ -60,21 +62,18 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         productTable.appendChild(row);
 
-        // Añadir evento de clic al botón de eliminar
         row.querySelector(".delete-btn").addEventListener("click", () => {
-            // Eliminar producto del arreglo
             products = products.filter((p) => p.id !== product.id);
-            // Eliminar la fila de la tabla
             row.remove();
         });
-        function filterProducts() {
-            const filterCategory = filterCategorySelect.value.trim();
+    }
 
-            productTable.innerHTML = '';
-            
-            products
-                .filter(product => filterCategory === "" || product.category === filterCategory)
-                .forEach(product => addProductToTable(product));
-        }
+    function filterProducts() {
+        const category = filterCategorySelect.value;
+        const filteredProducts = category === 'all' ? products : products.filter(product => product.category === category);
+
+        productTable.innerHTML = '';
+
+        filteredProducts.forEach(product => addProductToTable(product));
     }
 });
